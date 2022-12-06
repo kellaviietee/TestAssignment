@@ -13,6 +13,10 @@ public class ShareDataValidator {
     @Autowired
     private ShareDataRepository shareDataRepository;
 
+    /**
+     * Validates all the shareData fields.
+     * @param shareData Share data to be validated.
+     */
     public void validateShareData(ShareData shareData) {
         validateShareDataId(shareData);
         validateShareDataCompanyName(shareData);
@@ -23,18 +27,28 @@ public class ShareDataValidator {
 
     }
 
+    /**
+     * Validates the field of economic activity.
+     *
+     */
     private void validateShareDataFieldOfEconomicActivity(ShareData shareData) {
         if (shareData.getFieldOfEconomicActivity() == null || shareData.getFieldOfEconomicActivity().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Share data field of economic activity is missing");
         }
     }
-
+    /**
+     * Validates the country.
+     *
+     */
     private void validateShareDataCountry(ShareData shareData) {
         if (shareData.getCountry() == null || shareData.getCountry().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Share data country is missing");
         }
     }
-
+    /**
+     * Validates the ISIN code of the share data.
+     *
+     */
     private void validateShareDataISINCode(ShareData shareData) {
         if(shareData.getShareISINCode() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Share data ISIN code is missing");
@@ -42,19 +56,28 @@ public class ShareDataValidator {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Share data ISIN code is not matching with standard");
         }
     }
-
+    /**
+     * Validates the id of the share data.
+     *
+     */
     private void validateShareDataId(ShareData shareData) {
         if (shareDataRepository.existsById(shareData.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Share data ID already exists in database");
         }
     }
-
+    /**
+     * Validates the company name.
+     *
+     */
     private void validateShareDataCompanyName(ShareData shareData) {
         if (shareData.getCompanyName() == null || shareData.getCompanyName().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Share data company name is missing");
         }
     }
-
+    /**
+     * Validates the shares name.
+     *
+     */
     private void validateShareDataShareName(ShareData shareData) {
         if (shareData.getShareName() == null || shareData.getShareName().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Share data share name is missing");

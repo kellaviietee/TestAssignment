@@ -22,6 +22,11 @@ public class StockValidator {
     @Autowired
     private ShareDataValidator shareDataValidator;
 
+    /**
+     * Validates the stock, before adding it to the database.
+     * @param stock stock to be validated.
+     * @return if stock is valid returns it.
+     */
     public Stock isStockValid(Stock stock) {
         validateStockId(stock);
         validateStockPricePerShare(stock);
@@ -32,12 +37,19 @@ public class StockValidator {
         return stock;
     }
 
+    /**
+     * validates the stock date.
+     *
+     */
     private void validateStockDate(Stock stock) {
         if (stock.getDate() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Stock date is missing");
         }
     }
-
+    /**
+     * validates the stock id.
+     *
+     */
     private void validateStockId(Stock stock) {
         if (stock.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock ID is missing");
@@ -47,7 +59,10 @@ public class StockValidator {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Purchase with this ID has been done already");
         }
     }
-
+    /**
+     * validates the stock's share price.
+     *
+     */
     private void validateStockPricePerShare(Stock stock) {
         if (stock.getPricePerShare() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock price per share is missing");
@@ -55,7 +70,10 @@ public class StockValidator {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock price per share has to be bigger than zero");
         }
     }
-
+    /**
+     * validates the stocks volume.
+     *
+     */
     private void validateStockVolumeAcquired(Stock stock) {
         if (stock.getVolumeAcquired() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock volume acquired is missing");
@@ -63,7 +81,10 @@ public class StockValidator {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock volume acquired has to be bigger than zero");
         }
     }
-
+    /**
+     * Validates multiple stocks all at once. If there is a problem, it returns the number of the problematic stock.
+     *
+     */
     public List<Stock> validateAllStocks(List<Stock> stocks) {
         int problematicEntryNumber = 0;
         List<Stock> validStocks = new ArrayList<>();

@@ -13,6 +13,10 @@ public class EmployeeValidator {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    /**
+     * Validates the employee
+     * @param employee employee to be validated.
+     */
     public void validateEmployee(Employee employee) {
         if (employee.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Employee ID is missing");
